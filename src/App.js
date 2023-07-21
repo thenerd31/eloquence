@@ -81,6 +81,13 @@ function App() {
     } else {
       clearInterval(intervalId);
     }
+
+    // This useEffect runs when the component is mounted and canvasRef is available.
+    if (canvasRef.current) {
+      const ctx = canvasRef.current.getContext("2d");
+      // You can perform any canvas-related operations here, if needed.
+      // For example, you can set some initial drawings or configurations.
+    }
   }, [webcamActive]);
 
   return (
