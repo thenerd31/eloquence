@@ -34,9 +34,10 @@ body {
 
 .webcam-active-canvas {
   position: absolute;
+  top: 0;
+  left: 0;
   z-index: 10;
 }
-
 .app-name h1 {
   font-family: "Times New Roman", Times, serif;
   font-size: 2rem;

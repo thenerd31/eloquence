@@ -18,6 +18,12 @@ function App() {
   const stopWebcam = () => {
     clearInterval(intervalId);
     setWebcamActive(false);
+
+    // Clear the canvas when the webcam is stopped
+    if (ctxRef.current) {
+      const ctx = ctxRef.current;
+      ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+    }
   };
 
   const runCoco = async () => {
@@ -59,9 +65,13 @@ function App() {
       const classes = await obj[1].array();
       const scores = await obj[7].array();
 
+   
+    
+
       const ctx = ctxRef.current; // Access canvas context from the ref
+      console.log("ctx is null:", ctx === null);
       if (ctx) { // Check if context is available before drawing
-        drawRect(boxes[0], classes[0], scores[0], 0.8, videoWidth, videoHeight, ctx);
+        drawRect(boxes[0], classes[0], scores[0], 0.5, videoWidth, videoHeight, ctx);
       }
 
       tf.dispose(img);
@@ -81,6 +91,12 @@ function App() {
       clearInterval(intervalId);
     }
   }, [webcamActive]);
+
+  // This useEffect runs when the component is mounted and canvasRef is available.
+  useEffect(() => {
+    // You can perform any canvas-related operations here, if needed.
+    // For example, you can set some initial drawings or configurations.
+  }, [canvasRef]);
 
   return (
     <div className="App">
@@ -112,7 +128,8 @@ function App() {
         )}
       </div>
       {webcamActive && (
-        <canvas ref={canvasRef} className={`webcam-active-canvas ${webcamActive ? "webcam-active" : ""}`} />
+        <canvas ref={canvasRef} className={`webcam-active-canvas`} />
+
       )}
     </div>
   );

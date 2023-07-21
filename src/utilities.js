@@ -42,7 +42,9 @@ export const drawRect = (boxes, classes, scores, threshold, imgWidth, imgHeight,
             const [y,x,height,width] = boxes[i]
             
             const text = classes[i]
-            console.log(text)
+            console.log(labelMap[text]['name'])
+            console.log(Math.round(scores[i]*100)/100)
+            //console.log(text)
             // Set styling
             ctx.strokeStyle = labelMap[text]['color']
             ctx.lineWidth = 10
