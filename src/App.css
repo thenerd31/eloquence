@@ -1,0 +1,58 @@
+/* App.css */
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: black; /* Set the background color of the body to black */
+}
+
+.App {
+  text-align: center;
+  height: 100vh;
+}
+
+.App-header {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: black; /* Set the background color of the header to black */
+}
+
+.webcam-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-color: black; /* Set the background color of the webcam container to black */
+}
+
+.webcam-active {
+  position: absolute;
+  z-index: 9;
+}
+
+.webcam-active-canvas {
+  position: absolute;
+  z-index: 10;
+}
+
+.app-name h1 {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 2rem;
+  color: white;
+  margin: 0;
+}
+
+.activate-button {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 1rem;
+  padding: 10px 20px;
+  background-color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.activate-button:hover {
+  background-color: #f3f3f3;
+}
