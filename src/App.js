@@ -7,6 +7,7 @@ import "./App.css";
 function App() {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
+  const ctxRef = useRef(null); // Ref for canvas context
   const [webcamActive, setWebcamActive] = useState(false);
   const [intervalId, setIntervalId] = useState(null);
 
@@ -17,10 +18,6 @@ function App() {
   const stopWebcam = () => {
     clearInterval(intervalId);
     setWebcamActive(false);
-
-    // Clear the canvas when the webcam is stopped
-    const ctx = canvasRef.current.getContext("2d");
-    ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
   };
 
   const runCoco = async () => {
@@ -62,10 +59,10 @@ function App() {
       const classes = await obj[1].array();
       const scores = await obj[7].array();
 
-      const ctx = canvasRef.current.getContext("2d");
-      requestAnimationFrame(() => {
+      const ctx = ctxRef.current; // Access canvas context from the ref
+      if (ctx) { // Check if context is available before drawing
         drawRect(boxes[0], classes[0], scores[0], 0.8, videoWidth, videoHeight, ctx);
-      });
+      }
 
       tf.dispose(img);
       tf.dispose(resized);
@@ -77,16 +74,11 @@ function App() {
 
   useEffect(() => {
     if (webcamActive) {
+      // Call runCoco inside this useEffect when the component mounts and canvasRef is available
+      ctxRef.current = canvasRef.current.getContext("2d"); // Assign canvas context to the ref
       runCoco();
     } else {
       clearInterval(intervalId);
-    }
-
-    // This useEffect runs when the component is mounted and canvasRef is available.
-    if (canvasRef.current) {
-      const ctx = canvasRef.current.getContext("2d");
-      // You can perform any canvas-related operations here, if needed.
-      // For example, you can set some initial drawings or configurations.
     }
   }, [webcamActive]);
 
