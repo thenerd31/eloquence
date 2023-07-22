@@ -10,6 +10,7 @@ function App() {
   const ctxRef = useRef(null); // Ref for canvas context
   const [webcamActive, setWebcamActive] = useState(false);
   const [intervalId, setIntervalId] = useState(null);
+  const [detectedLetters, setDetectedLetters] = useState([]);
 
   const startWebcam = () => {
     setWebcamActive(true);
@@ -68,11 +69,11 @@ function App() {
    
     
 
-      const ctx = ctxRef.current; // Access canvas context from the ref
-      console.log("ctx is null:", ctx === null);
-      if (ctx) { // Check if context is available before drawing
-        drawRect(boxes[0], classes[0], scores[0], 0.8, videoWidth, videoHeight, ctx);
-      }
+      const ctx = ctxRef.current; 
+    if (ctx) { 
+      const identifiedLetter = drawRect(boxes[0], classes[0], scores[0], 0.8, videoWidth, videoHeight, ctx);
+      if (identifiedLetter) setDetectedLetters(prevLetters => [...prevLetters, identifiedLetter]);
+    }
 
       tf.dispose(img);
       tf.dispose(resized);
@@ -140,6 +141,12 @@ function App() {
         }}
       />
 
+      )}
+      {webcamActive && (
+        <div className={`detected-letters ${webcamActive ? "letters-active" : ""}`}>
+          <h2>Detected letters:</h2>
+          {detectedLetters.join(", ")}
+        </div>
       )}
     </div>
   );

@@ -57,3 +57,19 @@ body {
 .activate-button:hover {
   background-color: #f3f3f3;
 }
+
+.detected-letters {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  color: white;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 1.5rem;
+  visibility: hidden;
+}
+
+.letters-active {
+  visibility: visible;
+}

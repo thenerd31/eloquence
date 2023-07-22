@@ -33,6 +33,7 @@ const labelMap = {
 //Define a drawing function
 export const drawRect = (boxes, classes, scores, threshold, imgWidth, imgHeight, ctx)=>{
     //console.log(boxes.length)
+    let identifiedLetter = null;
 
     for(let i=0; i<=boxes.length; i++){
         //console.log("Boxes[i]:" + boxes[i])
@@ -57,7 +58,11 @@ export const drawRect = (boxes, classes, scores, threshold, imgWidth, imgHeight,
             ctx.fillText(labelMap[text]['name'] + ' - ' + Math.round(scores[i]*100)/100, x*imgWidth, y*imgHeight-10)
             ctx.rect(x*imgWidth, y*imgHeight, width*imgWidth/2, height*imgHeight/1.5);
             ctx.stroke()
+
+            identifiedLetter = labelMap[text]['name']
+            
         }
     }
+    return identifiedLetter;    
 }
 
