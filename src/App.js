@@ -71,7 +71,7 @@ function App() {
       const ctx = ctxRef.current; // Access canvas context from the ref
       console.log("ctx is null:", ctx === null);
       if (ctx) { // Check if context is available before drawing
-        drawRect(boxes[0], classes[0], scores[0], 0.5, videoWidth, videoHeight, ctx);
+        drawRect(boxes[0], classes[0], scores[0], 0.8, videoWidth, videoHeight, ctx);
       }
 
       tf.dispose(img);
