@@ -128,7 +128,17 @@ function App() {
         )}
       </div>
       {webcamActive && (
-        <canvas ref={canvasRef} className={`webcam-active-canvas`} />
+        <canvas
+        ref={canvasRef}
+        className={`webcam-active-canvas`}
+        style={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          zIndex: 10,
+        }}
+      />
 
       )}
     </div>
