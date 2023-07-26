@@ -1,9 +1,7 @@
-/* App.css */
-
 body {
   margin: 0;
   padding: 0;
-  background-color: black; /* Set the background color of the body to black */
+  background-color: black;
 }
 
 .App {
@@ -16,33 +14,37 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: black; /* Set the background color of the header to black */
+  background-color: black;
 }
 
-.webcam-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  background-color: black; /* Set the background color of the webcam container to black */
-}
-
-.webcam-active {
-  position: absolute;
-  z-index: 9;
-}
-
-.webcam-active-canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 10;
-}
 .app-name h1 {
   font-family: "Times New Roman", Times, serif;
   font-size: 2rem;
   color: white;
   margin: 0;
+}
+
+.webcam-container,
+.detected-letters {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+}
+
+.webcam-container {
+  height: 100%;
+}
+
+.webcam-active,
+.webcam-active-canvas {
+  position: absolute;
+}
+
+.webcam-active-canvas {
+  top: 0;
+  left: 0;
+  z-index: 10;
 }
 
 .activate-button {
@@ -60,10 +62,6 @@ body {
 
 .detected-letters {
   padding: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: black;
   color: white;
   font-family: "Times New Roman", Times, serif;
   font-size: 1.5rem;
@@ -72,4 +70,63 @@ body {
 
 .letters-active {
   visibility: visible;
+}
+
+.webcam-enter,
+.webcam-exit,
+.canvas-enter,
+.canvas-exit,
+.detected-letters-enter,
+.detected-letters-exit {
+  opacity: 1;
+}
+
+.webcam-enter-active,
+.webcam-exit-active,
+.canvas-enter-active,
+.canvas-exit-active,
+.detected-letters-enter-active,
+.detected-letters-exit-active {
+  opacity: 1;
+  transition: opacity 300ms, transform 300ms;
+}
+
+.webcam-enter,
+.canvas-enter,
+.detected-letters-enter {
+  transform: translateY(-100%);
+}
+
+.webcam-exit,
+.canvas-exit,
+.detected-letters-exit {
+  transform: translateY(0);
+}
+
+.webcam-enter-active,
+.canvas-enter-active,
+.detected-letters-enter-active {
+  transform: translateY(0);
+}
+
+.webcam-exit-active,
+.canvas-exit-active,
+.detected-letters-exit-active {
+  transform: translateY(100%);
+}
+
+.webcam-enter,
+.webcam-exit {
+  transform: translateX(-100%);
+}
+
+.webcam-enter-active,
+.webcam-exit-active {
+  transform: translateX(0);
+}
+
+.webcam-exit-active,
+.canvas-exit-active,
+.detected-letters-exit-active {
+  opacity: 0.01;
 }

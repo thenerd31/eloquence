@@ -3,6 +3,8 @@ import * as tf from "@tensorflow/tfjs";
 import Webcam from "react-webcam";
 import { drawRect } from "./utilities";
 import "./App.css";
+import { CSSTransition } from 'react-transition-group';
+
 
 function App() {
   const webcamRef = useRef(null);
@@ -118,7 +120,12 @@ function App() {
         )}
       </header>
       <div className="webcam-container">
-        {webcamActive && (
+        <CSSTransition
+          in={webcamActive}
+          timeout={300}
+          classNames="webcam"
+          unmountOnExit
+        >
           <Webcam
             ref={webcamRef}
             muted={true}
@@ -126,9 +133,14 @@ function App() {
             width={640}
             height={480}
           />
-        )}
+        </CSSTransition>
       </div>
-      {webcamActive && (
+      <CSSTransition
+        in={webcamActive}
+        timeout={300}
+        classNames="canvas"
+        unmountOnExit
+      >
         <canvas
         ref={canvasRef}
         className={`webcam-active-canvas`}
@@ -140,14 +152,18 @@ function App() {
           zIndex: 10,
         }}
       />
-
-      )}
-      {webcamActive && (
+      </CSSTransition>
+      <CSSTransition
+        in={webcamActive}
+        timeout={300}
+        classNames="detected-letters"
+        unmountOnExit
+      >
         <div className={`detected-letters ${webcamActive ? "letters-active" : ""}`}>
           <h2>Detected letters:</h2>
           {detectedLetters.join(", ")}
         </div>
-      )}
+      </CSSTransition>
     </div>
   );
 }
