@@ -24,27 +24,18 @@ body {
   margin: 0;
 }
 
-.webcam-container,
-.detected-letters {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: black;
-}
-
 .webcam-container {
+  display: flex;
   height: 100%;
+  width: 100%;
+  position: relative;
 }
 
-.webcam-active,
-.webcam-active-canvas {
-  position: absolute;
-}
-
-.webcam-active-canvas {
-  top: 0;
-  left: 0;
-  z-index: 10;
+.webcam-active {
+  flex: 1;
+  position: relative;
+  padding: 20px;
+  border-right: 1px solid white;
 }
 
 .activate-button {
@@ -61,11 +52,18 @@ body {
 }
 
 .detected-letters {
+  flex: 1;
   padding: 20px;
   color: white;
   font-family: "Times New Roman", Times, serif;
   font-size: 1.5rem;
   visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  word-wrap: break-word;
 }
 
 .letters-active {
