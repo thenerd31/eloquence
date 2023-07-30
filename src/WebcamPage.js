@@ -5,6 +5,8 @@ import { drawRect } from "./utilities";
 import { CSSTransition } from 'react-transition-group';
 import { useNavigate } from 'react-router-dom';
 import './App.css';
+import fetch from "node-fetch";
+
 
 const WebcamPage = () => {
   const webcamRef = useRef(null);
@@ -12,7 +14,8 @@ const WebcamPage = () => {
   const ctxRef = useRef(null); // Ref for canvas context
   const [webcamActive, setWebcamActive] = useState(false);
   const [intervalId, setIntervalId] = useState(null);
-  const [detectedLetters, setDetectedLetters] = useState([]);
+  const [detectedLetters, setDetectedLetters] = useState([])
+  const [displayText, setDisplayText] = useState('');
   const navigate = useNavigate();
 
   const startWebcam = () => {
@@ -31,7 +34,31 @@ const WebcamPage = () => {
 
     navigate('/');
   };
+  const fetchSegmentedWords = async (letters) => {
+    const options = {
+      method: 'POST',
+      headers: {'Content-Type': 'text/plain'},
+      body: letters.join(''),
+    };
 
+    try {
+      const response = await fetch('http://localhost:3000/word-segmentation', options);
+      const data = await response.json();
+      setDisplayText(prevDisplayText => prevDisplayText + ' ' + data.result.segmentedString);
+
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    if (detectedLetters.length && detectedLetters.length % 10 === 0) {
+      fetchSegmentedWords(detectedLetters.slice(-10));
+      setDetectedLetters([]);
+    } else {
+      setDisplayText(prevDisplayText => prevDisplayText + detectedLetters.join(''));
+    }
+  }, [detectedLetters]);
   const runCoco = async () => {
     const net = await tf.loadGraphModel(
       "https://tensorflowrealtimejsmodel31.s3.us-east.cloud-object-storage.appdomain.cloud/model.json"
@@ -74,7 +101,9 @@ const WebcamPage = () => {
       const ctx = ctxRef.current; 
       if (ctx) { 
         const identifiedLetter = drawRect(boxes[0], classes[0], scores[0], 0.8, videoWidth, videoHeight, ctx);
-        if (identifiedLetter) setDetectedLetters(prevLetters => [...prevLetters, identifiedLetter]);
+        if (identifiedLetter) {
+          setDetectedLetters(prevLetters => [...prevLetters, identifiedLetter]);
+        }
       }
 
       tf.dispose(img);
@@ -157,9 +186,9 @@ const WebcamPage = () => {
           classNames="detected-letters"
           unmountOnExit
         >
-          <div className={`detected-letters ${webcamActive ? "letters-active" : ""}`}>
-            <h2>Detected letters:</h2>
-            {detectedLetters.join(", ")}
+          <div className={`segmented-words ${webcamActive ? "words-active" : ""}`}>
+            <h2>Segmented Words:</h2>
+            {displayText}
           </div>
         </CSSTransition>
       </div>
