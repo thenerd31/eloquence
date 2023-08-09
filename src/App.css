@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap');
+
 body {
   margin: 0;
   padding: 0;
@@ -15,13 +17,17 @@ body {
   justify-content: space-between;
   align-items: center;
   background-color: black;
+  flex-direction: column;
 }
 
 .app-name h1 {
-  font-family: "Times New Roman", Times, serif;
-  font-size: 2rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 5rem;
   color: white;
   margin: 0;
+}
+.app-name p {
+  text-align: center; 
 }
 
 .webcam-container {
@@ -38,13 +44,14 @@ body {
   border-right: 1px solid white;
 }
 
-.activate-button {
-  font-family: "Times New Roman", Times, serif;
+.activate-button {  
+  font-family: "Montserrat", sans-serif;
   font-size: 1rem;
   padding: 10px 20px;
   background-color: white;
   border: none;
   cursor: pointer;
+  font-weight: bold;
 }
 
 .activate-button:hover {
@@ -55,7 +62,7 @@ body {
   flex: 1;
   padding: 20px;
   color: white;
-  font-family: "Times New Roman", Times, serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 1.5rem;
   visibility: hidden;
   display: block;
@@ -135,3 +142,51 @@ body {
 .segmented-words-exit-active {
   opacity: 0.01;
 }
+
+/* ...existing styles... */
+
+.get-started-button {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.2rem;
+  padding: 10px 20px;
+  background-color: #5C6BC0;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  border-radius: 5px;
+  margin-top: 20px;
+  font-weight: bold;
+
+}
+
+.get-started-button:hover {
+  background-color: #7986CB;
+}
+
+.app-description, .mission-statement {
+  color: #B3E5FC;
+  font-size: 1.2rem;
+  font-family: "Montserrat", sans-serif;
+  max-width: 700px;
+  margin: 10px auto;
+  line-height: 1.5;
+  text-align: center;
+  font-weight: bold;
+
+}
+
+
+
+.developer-credit {
+  font-size: 0.8rem;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  font-family: "Montserrat", sans-serif;
+  font-weight: bold;
+}
+
