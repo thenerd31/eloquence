@@ -19,6 +19,9 @@ const Menu = () => {
             <li>
               <Link to="/webcam" className="menu-link">Webcam</Link>
             </li>
+            <li>
+              <Link to="/why-we-do" className="menu-link">Why and What we Do</Link>
+            </li>
           </ul>
         </nav>
       </div>

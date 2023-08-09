@@ -130,12 +130,17 @@ const WebcamPage = () => {
 
   return (
     <div className="App">
+      <div className="testing-details">
+        <h2>Testing the Product:</h2>
+        <p>Follow the instructions to test our real-time letter detection system:</p>
+        <ul>
+          <li>Click "Activate Webcam" to start.</li>
+          <li>Position your hand to form letters within the view.</li>
+          <li>The detected letters and segmented words will appear below.</li>
+          <li>Click "Stop Webcam" to end the session.</li>
+        </ul>
+      </div>
       <header className={`App-header ${webcamActive ? "webcam-active-header" : ""}`}>
-        <div className="app-name">
-          <h1>
-            Eloquent <span role="img" aria-label="sign-language">🤟</span>
-          </h1>
-        </div>
         {webcamActive ? (
           <button onClick={stopWebcam} className="activate-button">
             Stop Webcam
@@ -146,6 +151,7 @@ const WebcamPage = () => {
           </button>
         )}
       </header>
+      
       <div className="webcam-container">
         <CSSTransition
           in={webcamActive}
@@ -193,6 +199,7 @@ const WebcamPage = () => {
       </div>
     </div>
   );
+  
 };
 
 export default WebcamPage;

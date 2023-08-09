@@ -16,10 +16,10 @@ const HomePage = () => {
             Eloquent
           </h1>
           <p className="app-description">
-            Welcome to Eloquent! We provide an interactive and intuitive way to learn and understand sign language.
+            Object detection in sign language.
           </p>
           <p className="mission-statement">
-            Our mission is to make sign language accessible to everyone, bridging the communication gap and fostering inclusivity.
+            Our mission is to make sign language accessible to everyone, bridging the communication gap, breaking down language barriers, and fostering inclusivity.
           </p>
         </div>
         <button onClick={handleGetStarted} className="get-started-button">

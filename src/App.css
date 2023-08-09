@@ -44,19 +44,7 @@ body {
   border-right: 1px solid white;
 }
 
-.activate-button {  
-  font-family: "Montserrat", sans-serif;
-  font-size: 1rem;
-  padding: 10px 20px;
-  background-color: white;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
-}
 
-.activate-button:hover {
-  background-color: #f3f3f3;
-}
 
 .detected-letters, .segmented-words {
   flex: 1;
@@ -249,5 +237,73 @@ body {
   background-color: white;
   color: black;
 }
+
+.why-we-do {
+  background-color: black;
+  color: white;
+  padding: 40px;
+  font-family: 'Montserrat', sans-serif;
+  line-height: 1.5;
+}
+
+.why-we-do h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center; 
+}
+
+.why-we-do p {
+  font-size: 1.2rem;
+  max-width: 800px;
+  margin: 20px auto;
+  text-align: justify;
+  font-weight: bold;
+}
+
+.testing-details {
+  padding: 20px;
+  font-family: "Montserrat", sans-serif;
+  background-color: black;
+  border-radius: 10px;
+  margin: 20px;
+  
+}
+
+.testing-details h2 {
+  color: white;
+  font-weight: bold;
+}
+
+.testing-details p {
+  color: white;
+  font-weight: bold;
+}
+
+.testing-details ul {
+  list-style-type: none;
+  padding-left: 20px;
+  color: white;
+  font-weight: bold;
+}
+
+.activate-button {
+  display: block;
+  font-family: "Montserrat", sans-serif;
+  font-weight: bold;
+  margin: 0px auto;
+  padding: 10px 20px;
+  background-color: white;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in;
+}
+
+.activate-button:hover {
+  background-color: #0056b3;
+}
+
+
 
 
