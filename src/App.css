@@ -231,6 +231,9 @@ body {
   color: white;
   display: block;
   padding: 10px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: bold;
+
 }
 
 .menu-link:hover {
@@ -272,11 +275,15 @@ body {
 .testing-details h2 {
   color: white;
   font-weight: bold;
+  font-family: "Montserrat", sans-serif;
+
 }
 
 .testing-details p {
   color: white;
   font-weight: bold;
+  font-family: "Montserrat", sans-serif;
+
 }
 
 .testing-details ul {
@@ -284,6 +291,8 @@ body {
   padding-left: 20px;
   color: white;
   font-weight: bold;
+  font-family: "Montserrat", sans-serif;
+
 }
 
 .activate-button {

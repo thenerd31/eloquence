@@ -131,11 +131,11 @@ const WebcamPage = () => {
   return (
     <div className="App">
       <div className="testing-details">
-        <h2>Testing the Product:</h2>
+        <h2>Try out our machine learning model:</h2>
         <p>Follow the instructions to test our real-time letter detection system:</p>
         <ul>
           <li>Click "Activate Webcam" to start.</li>
-          <li>Position your hand to form letters within the view.</li>
+          <li>Position your hand to sign letters within the view.</li>
           <li>The detected letters and segmented words will appear below.</li>
           <li>Click "Stop Webcam" to end the session.</li>
         </ul>
