@@ -32,7 +32,6 @@ const WebcamPage = () => {
       ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
     }
 
-    navigate('/');
   };
   const fetchSegmentedWords = async (letters) => {
     const options = {
