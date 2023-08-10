@@ -68,7 +68,7 @@ const WebcamPage = () => {
 
     const id = setInterval(() => {
       detect(net);
-    }, 20);
+    }, 1000);
     setIntervalId(id);
   };
 
