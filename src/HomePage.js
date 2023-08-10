@@ -27,7 +27,7 @@ const HomePage = () => {
         </button>
       </header>
       <div className="developer-credit">
-        Developed by Aswin Surya
+        Developed by Aswin Surya &copy; {new Date().getFullYear()}. All Rights Reserved.
       </div>
     </div>
 
