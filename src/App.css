@@ -9,6 +9,7 @@ body {
 .App {
   text-align: center;
   height: 100vh;
+  
 }
 
 .App-header {
@@ -323,6 +324,47 @@ body {
   z-index: 10; /* Ensure the canvas appears above the webcam */
 }
 
+.about-us {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+  font-weight: bold;
+  color: white;
+}
+
+
+
+.founder-image {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+
+
+.about-us {
+  background-color: black;
+  color: white;
+  padding: 40px;
+  font-family: 'Montserrat', sans-serif;
+  line-height: 1.5;
+}
+
+.about-us h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center; 
+}
+
+.bio {
+  font-size: 1.2rem;
+  max-width: 800px;
+  margin: 20px auto;
+  text-align: justify;
+  font-weight: bold;
+}
 
 
 

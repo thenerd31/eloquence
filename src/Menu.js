@@ -22,6 +22,9 @@ const Menu = () => {
             <li>
               <Link to="/webcam" className="menu-link">Our Solution</Link>
             </li>
+            <li>
+              <Link to="/about-us" className="menu-link">About Us</Link>
+            </li>
             
           </ul>
         </nav>

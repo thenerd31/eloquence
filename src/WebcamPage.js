@@ -68,7 +68,7 @@ const WebcamPage = () => {
 
     const id = setInterval(() => {
       detect(net);
-    }, 16.7);
+    }, 20);
     setIntervalId(id);
   };
 
@@ -133,6 +133,19 @@ const WebcamPage = () => {
 
   return (
     <div className="App">
+      <h1 style={{
+  backgroundColor: "black",
+  color: "white",
+  fontFamily: "'Montserrat', sans-serif",
+  lineHeight: "1.5",
+  fontSize: "2.5rem",
+  fontWeight: "bold",
+  textAlign: "center"
+}}>
+  Our Solution
+</h1>
+
+
       <div className="testing-details">
         <h2>Try out our machine learning model:</h2>
         <p>Follow the instructions to test our real-time letter detection system:</p>
