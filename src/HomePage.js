@@ -13,7 +13,7 @@ const HomePage = () => {
       <header className="App-header">
         <div className="app-name">
           <h1>
-            Eloquent
+            Eloquence
           </h1>
           <p className="app-description">
             Object detection in sign language.
