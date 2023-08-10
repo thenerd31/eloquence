@@ -122,7 +122,7 @@ const WebcamPage = () => {
     } else {
       clearInterval(intervalId);
     }
-  }, [webcamActive]);
+  }, [webcamActive, intervalId, runCoco]);
 
 
 
