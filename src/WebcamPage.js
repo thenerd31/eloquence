@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useCallback } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import * as tf from "@tensorflow/tfjs";
 import Webcam from "react-webcam";
 import { drawRect } from "./utilities";
@@ -58,62 +58,71 @@ const WebcamPage = () => {
     }
   }, [detectedLetters]);
 
-  const detect = useCallback(async (net) => {
-    if (
-      webcamRef.current &&
-      webcamRef.current.video.readyState === 4 &&
-      canvasRef.current
-    ) {
-      const video = webcamRef.current.video;
-      if (video.videoWidth === 0 || video.videoHeight === 0) {
-        webcamRef.current.video.width = 640;
-        webcamRef.current.video.height = 480;
-      }
-
-      const videoWidth = webcamRef.current.video.videoWidth;
-      const videoHeight = webcamRef.current.video.videoHeight;
-
-      canvasRef.current.width = videoWidth;
-      canvasRef.current.height = videoHeight;
-
-      const img = tf.browser.fromPixels(video);
-      const resized = tf.image.resizeBilinear(img, [640, 480]);
-      const casted = resized.cast("int32");
-      const expanded = casted.expandDims(0);
-      const obj = await net.executeAsync(expanded);
-
-      const boxes = await obj[2].array();
-      const classes = await obj[1].array();
-      const scores = await obj[7].array();
-
-      const ctx = ctxRef.current; 
-      if (ctx) { 
-        const identifiedLetter = drawRect(boxes[0], classes[0], scores[0], 0.8, videoWidth, videoHeight, ctx);
-        if (identifiedLetter) {
-          setDetectedLetters(prevLetters => [...prevLetters, identifiedLetter]);
-        }
-      }
-
-      tf.dispose(img);
-      tf.dispose(resized);
-      tf.dispose(casted);
-      tf.dispose(expanded);
-      tf.dispose(obj);
-    }
-  }, []);
-
   useEffect(() => {
-    if (webcamActive) {
-      const ctx = canvasRef.current.getContext("2d");
-      ctxRef.current = ctx; // Assign canvas context to the ref
+    let net = null; // Define the 'net' variable
+    const runCoco = async () => {
+      net = await tf.loadGraphModel(
+        "https://tensorflowrealtimejsmodel31.s3.us-east.cloud-object-storage.appdomain.cloud/model.json"
+      );
+
       const id = setInterval(() => {
         detect(net);
       }, 1000);
       setIntervalId(id);
+    };
+
+    const detect = async (net) => {
+      if (
+        webcamRef.current &&
+        webcamRef.current.video.readyState === 4 &&
+        canvasRef.current
+      ) {
+        const video = webcamRef.current.video;
+        if (video.videoWidth === 0 || video.videoHeight === 0) {
+          webcamRef.current.video.width = 640;
+          webcamRef.current.video.height = 480;
+        }
+
+        const videoWidth = video.videoWidth;
+        const videoHeight = video.videoHeight;
+
+        canvasRef.current.width = videoWidth;
+        canvasRef.current.height = videoHeight;
+
+        const img = tf.browser.fromPixels(video);
+        const resized = tf.image.resizeBilinear(img, [640, 480]);
+        const casted = resized.cast("int32");
+        const expanded = casted.expandDims(0);
+        const obj = await net.executeAsync(expanded);
+
+        const boxes = await obj[2].array();
+        const classes = await obj[1].array();
+        const scores = await obj[7].array();
+
+        const ctx = ctxRef.current;
+        if (ctx) {
+          const identifiedLetter = drawRect(boxes[0], classes[0], scores[0], 0.8, videoWidth, videoHeight, ctx);
+          if (identifiedLetter) {
+            setDetectedLetters(prevLetters => [...prevLetters, identifiedLetter]);
+          }
+        }
+
+        tf.dispose(img);
+        tf.dispose(resized);
+        tf.dispose(casted);
+        tf.dispose(expanded);
+        tf.dispose(obj);
+      }
+    };
+
+    if (webcamActive) {
+      const ctx = canvasRef.current.getContext("2d");
+      ctxRef.current = ctx; // Assign canvas context to the ref
+      runCoco();
     } else {
       clearInterval(intervalId);
     }
-  }, [webcamActive, intervalId, detect]);
+  }, [webcamActive, intervalId]);
 
   return (
     <div className="App">
@@ -150,7 +159,7 @@ const WebcamPage = () => {
           </button>
         )}
       </header>
-      
+
       <div className="webcam-container">
         <CSSTransition
           in={webcamActive}
