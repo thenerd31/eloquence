@@ -1,11 +1,10 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
 import * as tf from "@tensorflow/tfjs";
 import Webcam from "react-webcam";
 import { drawRect } from "./utilities";
 import { CSSTransition } from 'react-transition-group';
 import './App.css';
 import fetch from "node-fetch";
-
 
 const WebcamPage = () => {
   const webcamRef = useRef(null);
@@ -32,8 +31,8 @@ const WebcamPage = () => {
 
     setDetectedLetters([]);
     setDisplayText('');
-
   };
+
   const fetchSegmentedWords = async (letters) => {
     const options = {
       method: 'POST',
@@ -45,7 +44,6 @@ const WebcamPage = () => {
       const response = await fetch('http://localhost:3000/word-segmentation', options);
       const data = await response.json();
       setDisplayText(prevDisplayText => prevDisplayText + ' ' + data.result.segmentedString);
-
     } catch (error) {
       console.error(error);
     }
@@ -59,18 +57,8 @@ const WebcamPage = () => {
       setDisplayText(prevDisplayText => prevDisplayText + detectedLetters.join(''));
     }
   }, [detectedLetters]);
-  const runCoco = async () => {
-    const net = await tf.loadGraphModel(
-      "https://tensorflowrealtimejsmodel31.s3.us-east.cloud-object-storage.appdomain.cloud/model.json"
-    );
 
-    const id = setInterval(() => {
-      detect(net);
-    }, 1000);
-    setIntervalId(id);
-  };
-
-  const detect = async (net) => {
+  const detect = useCallback(async (net) => {
     if (
       webcamRef.current &&
       webcamRef.current.video.readyState === 4 &&
@@ -112,34 +100,34 @@ const WebcamPage = () => {
       tf.dispose(expanded);
       tf.dispose(obj);
     }
-  };
+  }, []);
 
   useEffect(() => {
     if (webcamActive) {
-      // Call runCoco inside this useEffect when the component mounts and canvasRef is available
-      ctxRef.current = canvasRef.current.getContext("2d"); // Assign canvas context to the ref
-      runCoco();
+      const ctx = canvasRef.current.getContext("2d");
+      ctxRef.current = ctx; // Assign canvas context to the ref
+      const id = setInterval(() => {
+        detect(net);
+      }, 1000);
+      setIntervalId(id);
     } else {
       clearInterval(intervalId);
     }
-  }, [webcamActive, intervalId, runCoco]);
-
-
+  }, [webcamActive, intervalId, detect]);
 
   return (
     <div className="App">
       <h1 style={{
-  backgroundColor: "black",
-  color: "white",
-  fontFamily: "'Montserrat', sans-serif",
-  lineHeight: "1.5",
-  fontSize: "2.5rem",
-  fontWeight: "bold",
-  textAlign: "center"
-}}>
-  Our Solution
-</h1>
-
+        backgroundColor: "black",
+        color: "white",
+        fontFamily: "'Montserrat', sans-serif",
+        lineHeight: "1.5",
+        fontSize: "2.5rem",
+        fontWeight: "bold",
+        textAlign: "center"
+      }}>
+        Our Solution
+      </h1>
 
       <div className="testing-details">
         <h2>Try out our machine learning model:</h2>
@@ -187,7 +175,6 @@ const WebcamPage = () => {
           <canvas
             ref={canvasRef}
             className={`webcam-active-canvas`}
-            
           />
         </CSSTransition>
         <CSSTransition
@@ -204,7 +191,6 @@ const WebcamPage = () => {
       </div>
     </div>
   );
-  
 };
 
 export default WebcamPage;
