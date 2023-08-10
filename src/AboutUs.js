@@ -1,12 +1,11 @@
 import React from 'react';
-import myImage from '/Users/aswin/eloquent/src/aswin.jpeg';
 
 
 const AboutUs = () => {
   return (
     <div className="about-us">
       <h1>About Us</h1>
-      <img src={myImage} alt="Aswin Surya" className="founder-image" />
+      <img src="/aswin.jpeg" alt="Aswin Surya" className="founder-image" />
       <h2>Aswin Surya, Founder</h2>
       <div className="bio">
         
