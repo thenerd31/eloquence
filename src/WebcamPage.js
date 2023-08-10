@@ -3,7 +3,6 @@ import * as tf from "@tensorflow/tfjs";
 import Webcam from "react-webcam";
 import { drawRect } from "./utilities";
 import { CSSTransition } from 'react-transition-group';
-import { useNavigate } from 'react-router-dom';
 import './App.css';
 import fetch from "node-fetch";
 
@@ -16,7 +15,6 @@ const WebcamPage = () => {
   const [intervalId, setIntervalId] = useState(null);
   const [detectedLetters, setDetectedLetters] = useState([])
   const [displayText, setDisplayText] = useState('');
-  const navigate = useNavigate();
 
   const startWebcam = () => {
     setWebcamActive(true);
@@ -126,10 +124,7 @@ const WebcamPage = () => {
     }
   }, [webcamActive]);
 
-  useEffect(() => {
-    // You can perform any canvas-related operations here, if needed.
-    // For example, you can set some initial drawings or configurations.
-  }, [canvasRef]);
+
 
   return (
     <div className="App">
