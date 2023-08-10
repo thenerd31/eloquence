@@ -8,16 +8,25 @@ const WhyWeDo = () => {
     <div className="why-we-do">
       <h1>Why and What We Do</h1>
       <p>
-        The concept of Eloquent was designed after a visit to India, where I saw
-        hundreds of people with severe hearing impairments, unable to communicate
-        with their families. India is home to 63 million people with hearing loss,
-        but there are only 250 sign language interpreters in the entire country!
-        These communication barriers still hamper access to basic public services
-        like healthcare and education. I personally witnessed this, as my own
-        grandfather suffers from partial hearing loss. The entire purpose of
-        Eloquent is to break down these barriers, and today, I hope I’ve shown you
-        a glimpse into the future where physical impairments don’t need to keep us
-        apart. Thank you!
+      More than 70 million people around the world use sign language to communicate. 
+      <br></br>
+      <br></br>
+      In a world filled with voices, silence carries a profound meaning. But silence 
+      should never equate to a lack of communication. Eloquent was designed to bridge 
+      the gap between silence and sound, gestures and words, using cutting-edge technology.
+      <br></br>
+      <br></br>
+      With Eloquent's real-time object detection machine learning software, we recognize 
+      hand signs and translate them into segmented words in an instant. We're not merely 
+      facilitating conversation; we're igniting understanding, fostering inclusivity, and 
+      empowering a community often left unheard. 
+      <br></br>
+      <br></br>
+      Eloquent isn't just a product; it's a movement towards a world where communication 
+      knows no bounds, and every sign is a symbol of connection.
+      <br></br>
+      <br></br>
+      Join us today and fight for change.
       </p>
       {/* Add statistics here if necessary */}
     </div>

@@ -32,6 +32,9 @@ const WebcamPage = () => {
       ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
     }
 
+    setDetectedLetters([]);
+    setDisplayText('');
+
   };
   const fetchSegmentedWords = async (letters) => {
     const options = {
@@ -176,13 +179,7 @@ const WebcamPage = () => {
           <canvas
             ref={canvasRef}
             className={`webcam-active-canvas`}
-            style={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              zIndex: 10,
-            }}
+            
           />
         </CSSTransition>
         <CSSTransition
