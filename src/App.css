@@ -376,6 +376,71 @@ body {
   transition: opacity 300ms ease-in-out;
 }
 
+@media only screen and (max-width: 1024px) {
+  .webcam-container {
+    flex-direction: column;
+  }
+  .webcam-active, .detected-letters, .segmented-words {
+    width: 100%;
+    border-right: none;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .app-name h1 {
+    font-size: 3rem;
+  }
+  .menu {
+    width: 150px;
+  }
+  .menu-icon {
+    width: 25px;
+    height: 20px;
+  }
+  .menu-icon div {
+    height: 3px;
+  }
+  .about-us, .why-we-do, .testing-details {
+    padding: 20px;
+  }
+  .bio, .why-we-do p {
+    font-size: 1rem;
+  }
+  .get-started-button {
+    padding: 5px 10px;
+  }
+  .app-description, .mission-statement {
+    font-size: 1rem;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .app-name h1 {
+    font-size: 2.5rem;
+  }
+  .menu-icon {
+    width: 20px;
+    height: 18px;
+  }
+  .menu-icon div {
+    height: 2px;
+  }
+  .menu {
+    width: 120px;
+  }
+  .bio, .why-we-do p {
+    font-size: 0.9rem;
+  }
+  .get-started-button {
+    font-size: 1rem;
+    padding: 5px;
+  }
+  .app-description, .mission-statement {
+    font-size: 0.9rem;
+    max-width: 400px;
+  }
+}
+
 
 
 
