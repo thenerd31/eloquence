@@ -1,9 +1,19 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
+
 
 
 const AboutUs = () => {
   return (
     <div className="about-us">
+      <Helmet>
+        <title>About Us - Eloquence</title>
+        <meta name="description" content="Learn about Aswin Surya, the founder of Eloquence, and his mission to bridge the gap between the hearing and the deaf communities through AI-driven solutions." />
+        <meta name="keywords" content="Aswin Surya, Eloquence, AI, sign language, healthcare, technology" />
+        <meta property="og:title" content="About Us - Eloquence" />
+        <meta property="og:description" content="Learn about Aswin Surya, the founder of Eloquence, and his mission to bridge the gap between the hearing and the deaf communities through AI-driven solutions." />
+        {/* Add the Open Graph image if available */}
+      </Helmet>
       <h1>About Us</h1>
       <img src="/aswin.jpeg" alt="Aswin Surya" className="founder-image" />
       <h2>Aswin Surya, Founder</h2>

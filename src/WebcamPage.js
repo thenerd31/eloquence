@@ -5,6 +5,8 @@ import { drawRect } from "./utilities";
 import { CSSTransition } from 'react-transition-group';
 import './App.css';
 import fetch from "node-fetch";
+import { Helmet } from 'react-helmet';
+
 
 const WebcamPage = () => {
   const webcamRef = useRef(null);
@@ -126,6 +128,14 @@ const WebcamPage = () => {
 
   return (
     <div className="App">
+      <Helmet>
+        <title>Our Solution - Eloquence</title>
+        <meta name="description" content="Try out Eloquence's real-time letter detection system using machine learning to recognize and translate hand signs into segmented words." />
+        <meta name="keywords" content="Eloquence, sign language, object detection, machine learning, real-time, AI" />
+        <meta property="og:title" content="Our Solution - Eloquence" />
+        <meta property="og:description" content="Try out Eloquence's real-time letter detection system using machine learning to recognize and translate hand signs into segmented words." />
+        {/* Add the Open Graph image if available */}
+      </Helmet>
       <h1 style={{
         backgroundColor: "black",
         color: "white",

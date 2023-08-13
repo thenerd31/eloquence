@@ -1,10 +1,19 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 
 
 const WhyWeDo = () => {
 
   return (
     <div className="why-we-do">
+      <Helmet>
+        <title>Our Mission - Eloquence</title>
+        <meta name="description" content="Eloquence bridges the gap between silence and sound, gestures and words, using cutting-edge technology. We recognize hand signs and translate them into words in an instant, fostering inclusivity and empowering a community often left unheard." />
+        <meta name="keywords" content="sign language, object detection, inclusivity, communication, connection" />
+        <meta property="og:title" content="Why and What We Do - Eloquence" />
+        <meta property="og:description" content="Eloquence bridges the gap between silence and sound, gestures and words, using cutting-edge technology. We recognize hand signs and translate them into words in an instant, fostering inclusivity and empowering a community often left unheard." />
+        {/* Add the Open Graph image if available */}
+      </Helmet>
       <h1>Why and What We Do</h1>
       <p>
       More than 70 million people around the world use sign language to communicate. 
