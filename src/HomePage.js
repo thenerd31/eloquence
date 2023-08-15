@@ -13,8 +13,8 @@ const HomePage = () => {
     <div className="App">
       <Helmet>
         <title>Eloquence - Object detection in sign language</title>
-        <meta name="description" content="Eloquence aims to make sign language accessible to everyone, bridging the communication gap, breaking down language barriers, and fostering inclusivity." />
-        <meta name="keywords" content="sign language, object detection, accessibility, inclusivity" />
+        <meta name="description" content="Eloquence aims to make sign language accessible to everyone through state-of-the-art object detection and machine learning, bridging the communication gap, breaking down language barriers, and fostering inclusivity." />
+        <meta name="keywords" content="Eloquence, sign language, object detection, accessibility, inclusivity" />
         <meta property="og:title" content="Eloquence - Object detection in sign language" />
         <meta property="og:description" content="Eloquence aims to make sign language accessible to everyone, bridging the communication gap, breaking down language barriers, and fostering inclusivity." />
         <meta property="og:image" content="/path/to/your/image.jpg" /> {/* Add path to your Open Graph image if available */}
@@ -25,9 +25,9 @@ const HomePage = () => {
           <h1>
             Eloquence
           </h1>
-          <p className="app-description">
+          <h2 className="app-description">
             Object detection in sign language.
-          </p>
+          </h2>
           <p className="mission-statement">
             Our mission is to make sign language accessible to everyone, bridging the communication gap, breaking down language barriers, and fostering inclusivity.
           </p>
@@ -37,7 +37,7 @@ const HomePage = () => {
         </button>
       </header>
       <div className="developer-credit">
-        Developed by Aswin Surya &copy; {new Date().getFullYear()}. All Rights Reserved.
+        Developed by <a href="https://www.linkedin.com/in/aswinsurya/" target="_blank" rel="noopener noreferrer">Aswin Surya</a> &copy; {new Date().getFullYear()}. All Rights Reserved.
       </div>
     </div>
 
