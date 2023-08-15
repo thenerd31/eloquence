@@ -14,11 +14,13 @@ const HomePage = () => {
       <Helmet>
         <title>Eloquence - Object detection in sign language</title>
         <meta name="description" content="Eloquence aims to make sign language accessible to everyone through state-of-the-art object detection and machine learning, bridging the communication gap, breaking down language barriers, and fostering inclusivity." />
-        <meta name="keywords" content="Eloquence, sign language, object detection, accessibility, inclusivity" />
+        <meta name="keywords" content="Eloquence, sign language, object detection, accessibility, inclusivity, machine learning, sign language translation" />
         <meta property="og:title" content="Eloquence - Object detection in sign language" />
         <meta property="og:description" content="Eloquence aims to make sign language accessible to everyone, bridging the communication gap, breaking down language barriers, and fostering inclusivity." />
         <meta property="og:image" content="/path/to/your/image.jpg" /> {/* Add path to your Open Graph image if available */}
         <meta property="og:type" content="website" />
+        <link rel="canonical" href="https://www.eloquence.live" />
+        <meta http-equiv="content-language" content="en" />
       </Helmet>
       <header className="App-header">
         <div className="app-name">
