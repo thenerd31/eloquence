@@ -9,7 +9,7 @@ const WhyWeDo = () => {
       <Helmet>
         <title>Our Mission - Eloquence</title>
         <meta name="description" content="Eloquence bridges the gap between silence and sound, gestures and words, using cutting-edge technology. We recognize hand signs and translate them into words in an instant, fostering inclusivity and empowering a community often left unheard." />
-        <meta name="keywords" content="sign language, object detection, inclusivity, communication, connection" />
+        <meta name="keywords" content="sign language, object detection, inclusivity, communication, connection, ASL, american sign language" />
         <meta property="og:title" content="Why and What We Do - Eloquence" />
         <meta property="og:description" content="Eloquence bridges the gap between silence and sound, gestures and words, using cutting-edge technology. We recognize hand signs and translate them into words in an instant, fostering inclusivity and empowering a community often left unheard." />
         {/* Add the Open Graph image if available */}

@@ -9,7 +9,7 @@ const AboutUs = () => {
       <Helmet>
         <title>About Us - Eloquence</title>
         <meta name="description" content="Learn about Aswin Surya, the founder of Eloquence, and his mission to bridge the gap between the hearing and the deaf communities through AI-driven solutions." />
-        <meta name="keywords" content="Aswin Surya, Eloquence, AI, sign language, healthcare, technology" />
+        <meta name="keywords" content="Aswin Surya, aswin, Aswin, surya, Eloquence, AI, sign language, healthcare, technology" />
         <meta property="og:title" content="About Us - Eloquence" />
         <meta property="og:description" content="Learn about Aswin Surya, the founder of Eloquence, and his mission to bridge the gap between the hearing and the deaf communities through AI-driven solutions." />
         {/* Add the Open Graph image if available */}
