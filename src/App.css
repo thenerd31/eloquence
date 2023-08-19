@@ -441,6 +441,19 @@ body {
   }
 }
 
+.developer-link {
+  color: white; /* Make the link white */
+}
+
+/* If you want to ensure that it stays white even when hovered or clicked: */
+.developer-link:hover,
+.developer-link:visited,
+.developer-link:active {
+  color: #add8e6;
+  ;
+}
+
+
 
 
 

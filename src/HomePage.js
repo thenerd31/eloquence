@@ -39,7 +39,7 @@ const HomePage = () => {
         </button>
       </header>
       <div className="developer-credit">
-        Developed by <a href="https://www.linkedin.com/in/aswinsurya/" target="_blank" rel="noopener noreferrer">Aswin Surya</a> &copy; {new Date().getFullYear()}. All Rights Reserved.
+        Developed by <a href="https://www.linkedin.com/in/aswinsurya/" target="_blank" rel="noopener noreferrer" className="developer-link">Aswin Surya</a> &copy; {new Date().getFullYear()}. All Rights Reserved.
       </div>
     </div>
 
