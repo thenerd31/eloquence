@@ -6,6 +6,7 @@ import WebcamPage from './WebcamPage';
 import Menu from './Menu';
 import WhyWeDo from './WhyWeDo';
 import AboutUs from './AboutUs';
+import HandTracking from './HandTracking';
 
 function App() {
   return (
