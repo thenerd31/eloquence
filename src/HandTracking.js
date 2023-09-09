@@ -12,7 +12,6 @@ const WebcamPage = () => {
   const [gestureRecognizer, setGestureRecognizer] = useState(null);
   const [detectedLetter, setDetectedLetter] = useState("");
   const requestRef = useRef();
-  const [runningMode, setRunningMode] = useState("VIDEO");
   const [detectedData, setDetectedData] = useState([]);
   const [progress, setProgress] = useState(0);
   const [displayedLetters, setDisplayedLetters] = useState([]);
@@ -73,7 +72,7 @@ const WebcamPage = () => {
       return;
     }
 
-    if (webcamActive == true) {
+    if (webcamActive) {
       setWebcamActive(false);
       cancelAnimationFrame(requestRef.current);
       
@@ -131,7 +130,6 @@ const WebcamPage = () => {
           modelAssetPath: "https://handtrackingmodel31.s3.us-west-1.amazonaws.com/sign_language_recognizer_25-04-2023.task"
         },
         numHands: 2,
-        runningMode: runningMode
       });
       setGestureRecognizer(recognizer);
     }
