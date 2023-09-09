@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import HomePage from './HomePage';
-import WebcamPage from './WebcamPage';
+import './App.css';
 import Menu from './Menu';
 import WhyWeDo from './WhyWeDo';
 import AboutUs from './AboutUs';

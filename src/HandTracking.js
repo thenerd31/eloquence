@@ -17,7 +17,7 @@ const HandTracking = () => {
   const [detectedData, setDetectedData] = useState([]);
   const [progress, setProgress] = useState(0);
   const [displayedLetters, setDisplayedLetters] = useState([]);
-  const [runningMode, setRunningMode] = useState("VIDEO");
+  const runningMode = useState("VIDEO");
 
 
   const predictWebcam = useCallback(() => {
@@ -62,7 +62,7 @@ const HandTracking = () => {
     if (webcamActive) {
       requestRef.current = requestAnimationFrame(predictWebcam);
     }
-  }, [webcamActive, runningMode, gestureRecognizer, setDetectedLetter]);
+  }, [webcamActive, gestureRecognizer, setDetectedLetter]);
 
   const animate = useCallback(() => {
     requestRef.current = requestAnimationFrame(animate);
@@ -154,7 +154,7 @@ const HandTracking = () => {
         <canvas ref={canvasRef} className = "hand-tracking-canvas"/>
         <div className="hand-tracking-info">Detected Sign: {detectedLetter}</div>
         {progress ? <div className="hand-tracking-info">Confidence: {progress}%</div> : null}
-        <div className="hand-tracking-info">All Signs Detected: {displayedLetters.join('')}</div>
+        <div className="hand-tracking-info">All Signs Detected: {displayedLetters.join(', ')}</div>
         <button className="activate-button" onClick={enableCam}>
           {webcamActive ? "Stop" : "Start"}
         </button>
