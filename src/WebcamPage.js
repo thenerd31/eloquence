@@ -1,10 +1,9 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, {useRef, useState, useEffect, useCallback} from "react";
 import * as tf from "@tensorflow/tfjs";
 import Webcam from "react-webcam";
 import { drawRect } from "./utilities";
 import { CSSTransition } from 'react-transition-group';
 import './App.css';
-import fetch from "node-fetch";
 import { Helmet } from 'react-helmet';
 
 
@@ -13,16 +12,17 @@ const WebcamPage = () => {
   const canvasRef = useRef(null);
   const ctxRef = useRef(null); // Ref for canvas context
   const [webcamActive, setWebcamActive] = useState(false);
-  const [intervalId, setIntervalId] = useState(null);
+  const intervalRef = useRef(null);
   const [detectedLetters, setDetectedLetters] = useState([])
   const [displayText, setDisplayText] = useState('');
+  const [graphModel, setGraphModel] = useState();
 
   const startWebcam = () => {
     setWebcamActive(true);
   };
 
   const stopWebcam = () => {
-    clearInterval(intervalId);
+    clearInterval(intervalRef.current);
     setWebcamActive(false);
 
     // Clear the canvas when the webcam is stopped
@@ -60,71 +60,92 @@ const WebcamPage = () => {
     }
   }, [detectedLetters]);
 
-  useEffect(() => {
-    let net = null; // Define the 'net' variable
-    const runCoco = async () => {
-      net = await tf.loadGraphModel(
-        "https://tensorflowrealtimejsmodel31.s3.us-east.cloud-object-storage.appdomain.cloud/model.json"
-      );
-
-      const id = setInterval(() => {
-        detect(net);
-      }, 10000);
-      setIntervalId(id);
-    };
-
-    const detect = async (net) => {
-      if (
+  const detect = useCallback(async () => {
+    if (!(
+        graphModel &&
         webcamRef.current &&
         webcamRef.current.video.readyState === 4 &&
         canvasRef.current
-      ) {
-        const video = webcamRef.current.video;
-        if (video.videoWidth === 0 || video.videoHeight === 0) {
-          webcamRef.current.video.width = 640;
-          webcamRef.current.video.height = 480;
-        }
-
-        const videoWidth = video.videoWidth;
-        const videoHeight = video.videoHeight;
-
-        canvasRef.current.width = videoWidth;
-        canvasRef.current.height = videoHeight;
-
-        const img = tf.browser.fromPixels(video);
-        const resized = tf.image.resizeBilinear(img, [640, 480]);
-        const casted = resized.cast("int32");
-        const expanded = casted.expandDims(0);
-        const obj = await net.executeAsync(expanded);
-
-        const boxes = await obj[2].array();
-        const classes = await obj[1].array();
-        const scores = await obj[7].array();
-
-        const ctx = ctxRef.current;
-        if (ctx) {
-          const identifiedLetter = drawRect(boxes[0], classes[0], scores[0], 0.8, videoWidth, videoHeight, ctx);
-          if (identifiedLetter) {
-            setDetectedLetters(prevLetters => [...prevLetters, identifiedLetter]);
-          }
-        }
-
-        tf.dispose(img);
-        tf.dispose(resized);
-        tf.dispose(casted);
-        tf.dispose(expanded);
-        tf.dispose(obj);
-      }
-    };
-
-    if (webcamActive) {
-      const ctx = canvasRef.current.getContext("2d");
-      ctxRef.current = ctx; // Assign canvas context to the ref
-      runCoco();
-    } else {
-      clearInterval(intervalId);
+    )) {
+      console.log('Not ready for detection');
+      return;
     }
-  }, [webcamActive, intervalId]);
+
+    const video = webcamRef.current.video;
+    if (video.videoWidth === 0 || video.videoHeight === 0) {
+      webcamRef.current.video.width = 640;
+      webcamRef.current.video.height = 480;
+    }
+
+    const videoWidth = video.videoWidth;
+    const videoHeight = video.videoHeight;
+
+    canvasRef.current.width = videoWidth;
+    canvasRef.current.height = videoHeight;
+
+    const img = tf.browser.fromPixels(video);
+    const resized = tf.image.resizeBilinear(img, [640, 480]);
+    const casted = resized.cast("int32");
+    const expanded = casted.expandDims(0);
+    const obj = await graphModel.executeAsync(expanded);
+
+    const boxes = await obj[2].array();
+    const classes = await obj[1].array();
+    const scores = await obj[7].array();
+
+    ctxRef.current = canvasRef.current.getContext("2d");
+
+    if (ctxRef.current) {
+      const identifiedLetter = drawRect(boxes[0], classes[0], scores[0], 0.8, videoWidth, videoHeight, ctxRef.current);
+      if (identifiedLetter) {
+        setDetectedLetters(prevLetters => [...prevLetters, identifiedLetter]);
+      }
+    }
+
+    tf.dispose(img);
+    tf.dispose(resized);
+    tf.dispose(casted);
+    tf.dispose(expanded);
+    tf.dispose(obj);
+
+    console.log('Detection finished');
+
+  }, [graphModel])
+
+  useEffect(() => {
+    const initializeGraphModel = async () => {
+      const net = await tf.loadGraphModel(
+          "https://tensorflowrealtimejsmodel31.s3.us-east.cloud-object-storage.appdomain.cloud/model.json"
+      );
+      setGraphModel(net);
+    }
+
+    initializeGraphModel()
+        .then(() => console.log('Graph Model loaded'))
+        .catch(e => console.error(e))
+  }, []);
+
+  useEffect(() => {
+    console.log([detect, webcamActive])
+    if (!webcamActive) {
+      // Timer is already running OR webcam is not active
+      return;
+    }
+    intervalRef.current = setInterval(
+        async () => {
+          try {
+            console.log('Attempting Detection');
+            await detect();
+          } catch (e) {
+            console.error(e);
+          }
+        },
+        1000
+    );
+    return () => {
+      clearInterval(intervalRef.current);
+    }
+  }, [detect, webcamActive]);
 
   return (
     <div className="App">
