@@ -3,6 +3,7 @@ import Webcam from "react-webcam";
 import { FilesetResolver, GestureRecognizer } from "@mediapipe/tasks-vision";
 import { drawConnectors, drawLandmarks } from "@mediapipe/drawing_utils";
 import { HAND_CONNECTIONS } from "@mediapipe/hands";
+import './HandTracking.css';
 
 const WebcamPage = () => {
   const webcamRef = useRef(null);
@@ -98,15 +99,16 @@ const WebcamPage = () => {
   }, []);
 
   return (
-    <div className="App">
-      <h1>ASL Translation</h1>
-      <Webcam ref={webcamRef} />
-      <canvas ref={canvasRef}  />
-      <div>Detected Letter: {detectedLetter}</div>
-      {progress ? <div>Confidence: {progress}%</div> : null}
-      <button onClick={enableCam}>
-        {webcamActive ? "Stop" : "Start"}
-      </button>
+    <div className="hand-tracking-container">
+      <div style={{position : "relative"}}>
+        <Webcam ref={webcamRef} className = "hand-tracking-webcam"/>
+        <canvas ref={canvasRef} className = "hand-tracking-canvas"/>
+        <div className="hand-tracking-info">Detected Letter: {detectedLetter}</div>
+        {progress ? <div className="hand-tracking-info">Confidence: {progress}%</div> : null}
+        <button onClick={enableCam}>
+          {webcamActive ? "Stop" : "Start"}
+        </button>
+      </div>
     </div>
   );
 };
