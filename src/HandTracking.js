@@ -21,7 +21,7 @@ const WebcamPage = () => {
     const canvasCtx = canvasRef.current.getContext("2d");
     canvasCtx.save();
     canvasCtx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
-    console.log(results);
+    //console.log(results);
     const videoWidth = webcamRef.current.video.videoWidth;
     const videoHeight = webcamRef.current.video.videoHeight;
 
@@ -33,14 +33,14 @@ const WebcamPage = () => {
     canvasRef.current.width = videoWidth;
     canvasRef.current.height = videoHeight;
 
-    if (results.landmarks && results.landmarks.length > 0) {
+    if (results.landmarks) {
       for (const landmarks of results.landmarks) {
         drawConnectors(canvasCtx, landmarks, HAND_CONNECTIONS, { color: "#00FF00", lineWidth: 5 });
         drawLandmarks(canvasCtx, landmarks, { color: "#FF0000", lineWidth: 2 });
       }
     }
 
-    if (results.gestures && results.gestures.length > 0) {
+    if (results.gestures.length > 0) {
       setDetectedData((prevData) => [
         ...prevData,
         {
@@ -57,7 +57,12 @@ const WebcamPage = () => {
     if (webcamActive) {
       requestRef.current = requestAnimationFrame(predictWebcam);
     }
-  }, [webcamActive, gestureRecognizer]);
+  }, [webcamActive, gestureRecognizer, setDetectedLetter]);
+
+  const animate = useCallback(() => {
+    requestRef.current = requestAnimationFrame(animate);
+    predictWebcam();
+  }, [predictWebcam]);
 
   const enableCam = () => {
     if (!gestureRecognizer) {
@@ -65,12 +70,13 @@ const WebcamPage = () => {
       return;
     }
 
-    if (webcamActive) {
+    if (webcamActive == true) {
       setWebcamActive(false);
       cancelAnimationFrame(requestRef.current);
+
     } else {
       setWebcamActive(true);
-      requestRef.current = requestAnimationFrame(predictWebcam);
+      requestRef.current = requestAnimationFrame(animate);
     }
   };
 
@@ -95,7 +101,7 @@ const WebcamPage = () => {
     <div className="App">
       <h1>ASL Translation</h1>
       <Webcam ref={webcamRef} />
-      <canvas ref={canvasRef} />
+      <canvas ref={canvasRef}  />
       <div>Detected Letter: {detectedLetter}</div>
       {progress ? <div>Confidence: {progress}%</div> : null}
       <button onClick={enableCam}>
