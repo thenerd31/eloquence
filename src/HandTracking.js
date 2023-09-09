@@ -1,7 +1,8 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import Webcam from "react-webcam";
 import { FilesetResolver, GestureRecognizer } from "@mediapipe/tasks-vision";
-import { drawConnectors, drawLandmarks, HAND_CONNECTIONS } from "@mediapipe/drawing_utils";
+import { HAND_CONNECTIONS } from "@mediapipe/hands"
+import { drawConnectors, drawLandmarks } from "@mediapipe/drawing_utils";
 
 const WebcamPage = () => {
   const webcamRef = useRef(null);

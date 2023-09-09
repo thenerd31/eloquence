@@ -26,6 +26,7 @@ function AnimatedRoutes() {
         <Routes location={location}>
           <Route path="/" element={<HomePage />} />
           <Route path="/webcam" element={<WebcamPage />} />
+          <Route path="/hand-tracking" element={<HandTracking />} />
           <Route path="/why-we-do" element={<WhyWeDo />} />
           <Route path="/about-us" element={<AboutUs />} />
         </Routes>
