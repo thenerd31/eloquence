@@ -4,8 +4,10 @@ import { FilesetResolver, GestureRecognizer } from "@mediapipe/tasks-vision";
 import { drawConnectors, drawLandmarks } from "@mediapipe/drawing_utils";
 import { HAND_CONNECTIONS } from "@mediapipe/hands";
 import './HandTracking.css';
+import { Helmet } from 'react-helmet';
 
-const WebcamPage = () => {
+
+const HandTracking = () => {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
   const [webcamActive, setWebcamActive] = useState(false);
@@ -15,6 +17,7 @@ const WebcamPage = () => {
   const [detectedData, setDetectedData] = useState([]);
   const [progress, setProgress] = useState(0);
   const [displayedLetters, setDisplayedLetters] = useState([]);
+  const [runningMode, setRunningMode] = useState("VIDEO");
 
 
   const predictWebcam = useCallback(() => {
@@ -59,7 +62,7 @@ const WebcamPage = () => {
     if (webcamActive) {
       requestRef.current = requestAnimationFrame(predictWebcam);
     }
-  }, [webcamActive, gestureRecognizer, setDetectedLetter]);
+  }, [webcamActive, runningMode, gestureRecognizer, setDetectedLetter]);
 
   const animate = useCallback(() => {
     requestRef.current = requestAnimationFrame(animate);
@@ -75,7 +78,7 @@ const WebcamPage = () => {
     if (webcamActive) {
       setWebcamActive(false);
       cancelAnimationFrame(requestRef.current);
-      
+      setDisplayedLetters([]);
 
       // Remove empty values
       const nonEmptyData = detectedData.filter(
@@ -130,21 +133,29 @@ const WebcamPage = () => {
           modelAssetPath: "https://handtrackingmodel31.s3.us-west-1.amazonaws.com/sign_language_recognizer_25-04-2023.task"
         },
         numHands: 2,
+        runningMode: runningMode,
       });
       setGestureRecognizer(recognizer);
     }
     loadGestureRecognizer();
-  }, []);
+  }, [runningMode]);
 
   return (
     <div className="hand-tracking-container">
+      <Helmet>
+        <title>Hand Tracking - Eloquence</title>
+        <meta name="description" content="Experience Eloquence's advanced hand gesture recognition system. Test our real-time hand gesture recognition and see the results instantly." />
+        <meta name="keywords" content="Eloquence, hand tracking, gesture recognition, machine learning, real-time, AI, artificial intelligence" />
+        <meta property="og:title" content="Hand Tracking - Eloquence" />
+        <meta property="og:description" content="Experience Eloquence's advanced hand gesture recognition system. Test our real-time hand gesture recognition and see the results instantly." />
+      </Helmet>
       <div style={{position : "relative"}}>
         <Webcam ref={webcamRef} className = "hand-tracking-webcam"/>
         <canvas ref={canvasRef} className = "hand-tracking-canvas"/>
-        <div className="hand-tracking-info">Detected Letter: {detectedLetter}</div>
+        <div className="hand-tracking-info">Detected Sign: {detectedLetter}</div>
         {progress ? <div className="hand-tracking-info">Confidence: {progress}%</div> : null}
-        <div className="hand-tracking-info">Detected Letters: {displayedLetters.join('')}</div>
-        <button onClick={enableCam}>
+        <div className="hand-tracking-info">All Signs Detected: {displayedLetters.join('')}</div>
+        <button className="activate-button" onClick={enableCam}>
           {webcamActive ? "Stop" : "Start"}
         </button>
       </div>
@@ -152,4 +163,4 @@ const WebcamPage = () => {
   );
 };
 
-export default WebcamPage;
+export default HandTracking;
