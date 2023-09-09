@@ -15,6 +15,8 @@ const WebcamPage = () => {
   const [runningMode, setRunningMode] = useState("VIDEO");
   const [detectedData, setDetectedData] = useState([]);
   const [progress, setProgress] = useState(0);
+  const [displayedLetters, setDisplayedLetters] = useState([]);
+
 
   const predictWebcam = useCallback(() => {
     let nowInMs = Date.now();
@@ -74,6 +76,44 @@ const WebcamPage = () => {
     if (webcamActive == true) {
       setWebcamActive(false);
       cancelAnimationFrame(requestRef.current);
+      
+
+      // Remove empty values
+      const nonEmptyData = detectedData.filter(
+        (data) => data.SignDetected !== "" && data.DetectedScore !== ""
+      );
+
+      //to filter continous same signs in an array
+      const resultArray = [];
+      let current = nonEmptyData[0];
+
+      for (let i = 1; i < nonEmptyData.length; i++) {
+        if (nonEmptyData[i].SignDetected !== current.SignDetected) {
+          resultArray.push(current);
+          current = nonEmptyData[i];
+        }
+      }
+
+      resultArray.push(current);
+
+      //calculate count for each repeated sign
+      const countMap = new Map();
+
+      for (const item of resultArray) {
+        const count = countMap.get(item.SignDetected) || 0;
+        countMap.set(item.SignDetected, count + 1);
+      }
+
+      const sortedArray = Array.from(countMap.entries()).sort(
+        (a, b) => b[1] - a[1]
+      );
+
+      const outputArray = sortedArray
+        .slice(0, 5)
+        .map(([sign, count]) => ({ SignDetected: sign, count }));
+      console.log(outputArray);
+      setDisplayedLetters(prevLetters => [...prevLetters, ...outputArray.map(item => item.SignDetected)]);
+
 
     } else {
       setWebcamActive(true);
@@ -105,6 +145,7 @@ const WebcamPage = () => {
         <canvas ref={canvasRef} className = "hand-tracking-canvas"/>
         <div className="hand-tracking-info">Detected Letter: {detectedLetter}</div>
         {progress ? <div className="hand-tracking-info">Confidence: {progress}%</div> : null}
+        <div className="hand-tracking-info">Detected Letters: {displayedLetters.join('')}</div>
         <button onClick={enableCam}>
           {webcamActive ? "Stop" : "Start"}
         </button>
