@@ -143,7 +143,7 @@ const HandTracking = () => {
       setGestureRecognizer(recognizer);
     }
     loadGestureRecognizer();
-  }, []);
+  }, [runningMode]);
 
   return (
     <div className="hand-tracking-container">
