@@ -41,6 +41,35 @@
 
   }
   
-
-
+  @media screen and (max-width: 1080px) {
+    .hand-tracking-webcam {
+      width: 550px;
+      height: 500px;
+    }
   
+    .hand-tracking-canvas {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 550px;
+      height: 500px;
+    }
+  }   
+  @media screen and (max-width: 550px) {
+
+    .hand-tracking-webcam {
+        width: 100%;
+        height: fit-content;
+    }
+      
+    .hand-tracking-canvas {
+        width: 100%;
+        height: fit-content;
+    }
+    .hand-tracking-info {
+        font-size: 18px;
+        width: 30%;
+      }
+}
+
+
