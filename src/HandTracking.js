@@ -78,6 +78,7 @@ const HandTracking = () => {
     if (webcamActive) {
       setWebcamActive(false);
       cancelAnimationFrame(requestRef.current);
+      setDetectedData([]);
       setDisplayedLetters([]);
 
       // Remove empty values
@@ -111,7 +112,7 @@ const HandTracking = () => {
       );
 
       const outputArray = sortedArray
-        .slice(0, 5)
+        //.slice(0, 5)
         .map(([sign, count]) => ({ SignDetected: sign, count }));
       console.log(outputArray);
       setDisplayedLetters(prevLetters => [...prevLetters, ...outputArray.map(item => item.SignDetected)]);
