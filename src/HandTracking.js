@@ -76,6 +76,10 @@ const HandTracking = () => {
     }
 
     if (webcamActive) {
+      if (canvasRef.current) {
+        const canvasCtx = canvasRef.current.getContext("2d");
+        canvasCtx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+      }
       setWebcamActive(false);
       cancelAnimationFrame(requestRef.current);
       setDetectedData([]);
@@ -139,7 +143,7 @@ const HandTracking = () => {
       setGestureRecognizer(recognizer);
     }
     loadGestureRecognizer();
-  }, [runningMode]);
+  }, []);
 
   return (
     <div className="hand-tracking-container">
