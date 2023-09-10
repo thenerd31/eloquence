@@ -9,7 +9,7 @@ const WhyWeDo = () => {
       <Helmet>
         <title>Our Mission - Eloquence</title>
         <meta name="description" content="Eloquence bridges the gap between silence and sound, gestures and words, using cutting-edge technology. We recognize hand signs and translate them into words in an instant, fostering inclusivity and empowering a community often left unheard." />
-        <meta name="keywords" content="sign language, object detection, inclusivity, communication, connection, ASL, american sign language" />
+        <meta name="keywords" content="sign language, hand tracking, object detection, inclusivity, communication, connection, ASL, american sign language" />
         <meta property="og:title" content="Why and What We Do - Eloquence" />
         <meta property="og:description" content="Eloquence bridges the gap between silence and sound, gestures and words, using cutting-edge technology. We recognize hand signs and translate them into words in an instant, fostering inclusivity and empowering a community often left unheard." />
         {/* Add the Open Graph image if available */}
@@ -24,7 +24,7 @@ const WhyWeDo = () => {
       the gap between silence and sound, gestures and words, using cutting-edge technology.
       <br></br>
       <br></br>
-      With Eloquence's real-time object detection machine learning software, we recognize 
+      With Eloquence's real-time hand-tracking machine learning software, we recognize 
       hand signs and translate them into segmented words in an instant. We're not merely 
       facilitating conversation; we're igniting understanding, fostering inclusivity, and 
       empowering a community often left unheard. 
